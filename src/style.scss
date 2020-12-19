@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-#form-wrap {  
+#form-wrap {
   margin: 30px auto;
   max-width:60%;
 
@@ -12,13 +12,11 @@
     padding: 10px;
     font-size: 17px;
     border: 1px solid grey;
-    float: left;
     width: 80%;
     background: #f1f1f1;
   }
 
   #search-button {
-    float: left;
     width: 20%;
     padding: 10px;
     background: #2196F3;
@@ -35,10 +33,34 @@
 }
 
 #w-wrap {
-  position: relative;
-  margin: auto;
-  width: 40%;
+  margin: 50px auto;
+  height: 20vw;
+  max-width: 50%;
+  padding: 30px;
   border-radius: 15px;
-  background-color: rgb(212, 212, 228);
+  background-color: rgb(146, 150, 144);
   border: 1px solid rgb(86, 86, 187);
+
+  
+  .w-info {
+    font-size: 20px;
+  }
+
+  .temp {
+    font-size: 50px;
+  }
+
+  .t-unit {
+    font-size: 25px;
+    cursor: pointer;
+
+    .cel {
+      color:  blue;
+      padding: 14px;
+    }
+
+    .fah {
+      padding: 14px;
+    }
+  }
 }
