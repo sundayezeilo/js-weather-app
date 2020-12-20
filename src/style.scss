@@ -4,30 +4,57 @@
   box-sizing: border-box;
 }
 
-#form-wrap {
-  margin: 30px auto;
-  max-width:60%;
+.page-heading {
+  margin-top: 30px;
+  color: #726aca;
+  text-align: center;
 
-  #search {
-    padding: 10px;
-    font-size: 17px;
-    border: 1px solid grey;
-    width: 80%;
-    background: #f1f1f1;
+}
+
+#favorites {
+  color: #1a0dab;
+  font-size: 24px;
+  text-decoration: none;
+
+  &:visited {
+    color: #1a0dab;
   }
+}
 
-  #search-button {
-    width: 20%;
-    padding: 10px;
-    background: rgb(146, 150, 144);
-    color: white;
-    font-size: 17px;
-    border: 1px solid grey;
-    border-left: none;
-    cursor: pointer;
+#header-wrap {
+  margin: 20px auto;
+  width:50%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10vh;
+  background-color: rgb(172, 184, 172);
+  border-radius: 20px;
+  padding: 10px;
+  
+  #form-wrap {
+    max-width:70%;
+  
+    #search {
+      padding: 10px;
+      font-size: 17px;
+      border: 1px solid grey;
+      width: 75%;
+      background: #f1f1f1;
 
-    &:hover {
-      background: #0b7dda;
+      &:focus {
+        outline: none;
+      }
+    }
+  
+    #search-button {
+      width: 20%;
+      padding: 10px;
+      color: white;
+      border: none;
+      font-size: 17px;
+      cursor: pointer;
+      background-color: rgb(172, 184, 172);
     }
   }
 }
@@ -39,16 +66,15 @@
   margin: 50px auto;
   position: relative;
   border-radius: 15px;
-  background-color: #f1f1f1e1;
-
-  &:hover {
-    transform: scale(1.05);
-  }
-
+  background-color: #bbbebe42 ;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
   
   .w-info {
-    color: #878787;
+    color: #140d0dee;
     font-size: 20px;
+    font-weight: bold;
   }
 
   .temp {
@@ -89,9 +115,66 @@
     display: inline-block;
 
     &:hover {
-      transform: scale(1.5);
+      font-size: 20px;      
+      transform: scale(1.1);
       border-color: rosybrown;
-      box-shadow:  0 0 10px #ffc600;
+      box-shadow:  0 0 10px #ff0037;
     }
   }
+
+  .add-fav {
+    left: 30px;
+    bottom: 20px;
+    height: 30px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 8px;
+    position: absolute;
+    display: inline-block;
+    background-color: gray;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.broken-clouds {
+  background-image: url('./images/broken-clouds.jpeg');
+}
+
+.clear-sky {
+  background-image: url('./images/clear-sky.jpeg');
+}
+
+.few-clouds {
+  background-image: url('./images/few-clouds.jpeg');
+}
+
+.mist {
+  background-image: url('./images/mist.jpeg');
+}
+
+.overcast-clouds {
+  background-image: url('./images/overcast-clouds.jpeg');
+}
+
+.rain{
+  background-image: url('./images/rain.jpeg');
+}
+
+.scattered-clouds {
+  background-image: url('./images/scattered-clouds.jpeg');
+}
+
+.shower-rain {
+  background-image: url('./images/shower-rain.jpeg');
+}
+
+.snow {
+  background-image: url('./images/snow.jpeg');
+}
+
+.thunderstorm {
+  background-image: url('./images/few-clouds.jpeg');
 }

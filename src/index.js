@@ -1,6 +1,7 @@
 import './style.scss';
 import fetch from 'node-fetch';
-import { showForm, showWeather } from './utils';
+import { createHeader, showWeather } from './utils';
+// import { showFavorites } from './favorites'
 
 const fetchJSON = async (url) => {
   const response = await fetch(url);
@@ -46,10 +47,17 @@ function searchHandler(event) {
   }
 }
 
+
+const pageHeading = document.createElement('H1');
+pageHeading.className = 'page-heading';
+pageHeading.innerText = 'WEATHER WEBSITE';
+
 window.onload = () => {
-  document.body.appendChild(showForm());
+  document.body.appendChild(pageHeading);
+  document.body.appendChild(createHeader());
   document.body.appendChild(wWrap);
 
   document.querySelector('#search-button').addEventListener('click', searchHandler)
+  // document.querySelector('#favorites').addEventListener('click', showFavorites);
 };
 

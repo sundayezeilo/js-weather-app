@@ -25,6 +25,9 @@ function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1); 
 }
 
+function getImgSrc(str) {
+  return str.split(' ').map(e => e.toLowerCase()).join('-');  
+}
 
 export function showWeather(wObject, wrap) {
   const closeButton = document.createElement('button');
@@ -42,6 +45,8 @@ export function showWeather(wObject, wrap) {
   cloud.className = 'w-info';
   cloud.innerText = wObject.cloudCond.split(' ').map(e => capitalize(e)).join(' ');
   wrap.appendChild(cloud);
+
+  wrap.className = getImgSrc(wObject.cloudCond);
 
   const icon = document.createElement('img');
   icon.className = 'w-icon';
@@ -78,7 +83,18 @@ export function showWeather(wObject, wrap) {
 
   wrap.appendChild(sideWrap);
 
+  const addFav = document.createElement('button');
+  addFav.type = 'button';
+  addFav.className = 'add-fav fa fa-plus-square';
+  addFav.innerText = ' Add to favorites';
+  wrap.appendChild(addFav);
+
   wrap.style.display = 'block';
+
+  wrap.className = getImgSrc(wObject.cloudCond);
+
+  // let imgSrc = getImgSrc(wObject.cloudCond);
+  // wrap.style.backgroundImage = `url("./images/${imgSrc}.jpeg")`
 
   document.querySelector('.cel').addEventListener('click', (e) => {
     e.stopPropagation();
@@ -114,3 +130,19 @@ export function showWeather(wObject, wrap) {
   })  
 }
 
+
+export function createHeader() {
+  let headerWrap = document.createElement('div');
+  headerWrap.id = 'header-wrap';
+
+  const favLink = document.createElement('a');
+  favLink.className = 'favorites';
+  favLink.id = 'favorites';
+  favLink.href = '#';
+  favLink.innerHTML = 'Favorites <i class="fa fa-angle-double-right"></i>';
+
+  headerWrap.appendChild(favLink);
+  headerWrap.appendChild(showForm());
+
+  return headerWrap;
+}
