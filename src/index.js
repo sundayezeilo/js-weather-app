@@ -10,7 +10,7 @@ const fetchJSON = async (url) => {
 function resetSearchForm() {
   let textField = document.getElementById('search');
   textField.value = '';
-  textField.placeholder = 'London, UK, Lagos NG, etc';
+  textField.placeholder = 'Search city';
 }
 
 
@@ -18,8 +18,9 @@ function processWeather(rawWeather) {
   return {
     location: `${rawWeather.name}, ${rawWeather.sys.country}`,
     cloudCond: rawWeather['weather'][0]['description'],
-    tempFah: ((rawWeather['main']['temp'] - 273.15) * 1.8 + 32).toFixed(2),
-    windSpeed: rawWeather['wind']['speed'],
+    tempFah: ((rawWeather['main']['temp'] - 273.15) * 1.8 + 32).toFixed(),
+    humidity: 'Humidity: ' + (rawWeather.main.humidity).toFixed() + '%',
+    windSpeed: 'Wind: ' + (rawWeather['wind']['speed']).toFixed() + ' mph',
     icon: `http://openweathermap.org/img/wn/${rawWeather.weather[0].icon}@2x.png`,
   }
 }

@@ -3,7 +3,7 @@ export function showForm() {
   searchForm.type = 'text';
   searchForm.id = 'search';
   searchForm.name = 'search';
-  searchForm.placeholder = 'London, UK, Lagos NG, etc';
+  searchForm.placeholder = 'Search city';
 
   const faIcon = document.createElement('i');
   faIcon.className = "fa fa-search";
@@ -27,6 +27,12 @@ function capitalize(str) {
 
 
 export function showWeather(wObject, wrap) {
+  const closeButton = document.createElement('button');
+  closeButton.className = 'fa fa-window-close';
+  closeButton.id = 'w-close-button';
+  closeButton.setAttribute('aria-hidden', "true");
+  wrap.appendChild(closeButton);
+
   const location = document.createElement('p');
   location.className = 'w-info';
   location.innerText = wObject.location;
@@ -45,20 +51,66 @@ export function showWeather(wObject, wrap) {
 
   const temp = document.createElement('span');
   temp.className = 'w-info temp';
-  temp.innerText = wObject.tempFah;
+
+  const tempVal = document.createElement('span');
+  tempVal.className = 'temp-fah';
+  tempVal.innerText = wObject.tempFah;
+  temp.appendChild(tempVal);
+
   const tempUnit = document.createElement('span');
   tempUnit.className = 't-unit';
-  tempUnit.innerHTML = ' <sup><span class="fah">&deg;F<span> | <span class="cel">&deg;C</span></sup>';
+  tempUnit.innerHTML = ' <sup><a href="#" class="fah" style="color:#202124;">&deg;F<a>&nbsp; | &nbsp;<a href="#" class="cel" style="color:#1a0dab;">&deg;C</a></sup>';
   temp.appendChild(tempUnit);
   wrap.appendChild(temp);
 
+  let sideWrap = document.createElement('div');
+  sideWrap.className = 'side-wrap';
+  
+  const humidity = document.createElement('p');
+  humidity.className = 'w-info';
+  humidity.innerText = wObject.humidity;
+  sideWrap.appendChild(humidity);
 
+  let windSpeed = document.createElement('p');
+  windSpeed.className = 'w-info';
+  windSpeed.innerText = wObject.windSpeed;
+  sideWrap.appendChild(windSpeed);
 
-  // const windSpeed = document.createElement('p');
-  // windSpeed.className = 'w-info';
-  // windSpeed.innerText = wObject.windSpeed;
-  // wrap.appendChild(windSpeed);
-
+  wrap.appendChild(sideWrap);
 
   wrap.style.display = 'block';
+
+  document.querySelector('.cel').addEventListener('click', (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    let tempStr;
+    if(tempStr = document.querySelector('.temp-fah')){
+      let tempVal = parseFloat(tempStr.innerText)
+      let cel = ((tempVal - 32) * 5/9).toFixed();
+      tempStr.className = 'temp-cel';
+      tempStr.innerText = cel;
+      document.querySelector('.fah').style.color = '#1a0dab'; 
+      document.querySelector('.cel').style.color = '#202124';     
+    }
+  })
+
+  document.querySelector('.fah').addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    let tempStr;
+    if(tempStr = document.querySelector('.temp-cel')){
+      let tempVal = parseFloat(tempStr.innerText)
+      let fah = (tempVal * 1.8 + 32).toFixed()
+      tempStr.className = 'temp-fah';
+      tempStr.innerText = fah;
+      document.querySelector('.cel').style.color = '#1a0dab';  
+      document.querySelector('.fah').style.color = '#202124';      
+    }
+  })
+
+  document.getElementById('w-close-button').addEventListener('click', e => {
+    e.stopPropagation();
+    document.getElementById('w-wrap').style.display = 'none';
+  })  
 }
+
