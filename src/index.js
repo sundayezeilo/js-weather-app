@@ -37,11 +37,12 @@ function searchHandler(event) {
   if(searchText){
     let city = searchText.split(/[\s, ]+/)[0];
     let country = searchText.split(/[\s, ]+/)[1];
+    wWrap.innerHTML = '';
     fetchJSON(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
       wWrap.innerHTML = '';   
       showWeather(processWeather(jsonData), document.getElementById('w-wrap'));
       resetSearchForm();
-    }).catch(e => console.log(e))
+    }).catch(e => alert('Oops! Something went wrong.\n Check your input and try again!'))
   }else{
     alert("input can't be blank");
   }
