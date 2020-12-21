@@ -1,3 +1,5 @@
+import { addToFavorite } from './favorites'
+
 export function showForm() {
   const searchForm = document.createElement('input');
   searchForm.type = 'text';
@@ -37,7 +39,7 @@ export function showWeather(wObject, wrap) {
   wrap.appendChild(closeButton);
 
   const location = document.createElement('p');
-  location.className = 'w-info';
+  location.className = 'w-info loc';
   location.innerText = wObject.location;
   wrap.appendChild(location);
 
@@ -85,6 +87,7 @@ export function showWeather(wObject, wrap) {
 
   const addFav = document.createElement('button');
   addFav.type = 'button';
+  addFav.id = 'add-fav'
   addFav.className = 'add-fav fa fa-plus-square';
   addFav.innerText = ' Add to favorites';
   wrap.appendChild(addFav);
@@ -92,9 +95,6 @@ export function showWeather(wObject, wrap) {
   wrap.style.display = 'block';
 
   wrap.className = getImgSrc(wObject.cloudCond);
-
-  // let imgSrc = getImgSrc(wObject.cloudCond);
-  // wrap.style.backgroundImage = `url("./images/${imgSrc}.jpeg")`
 
   document.querySelector('.cel').addEventListener('click', (e) => {
     e.stopPropagation();
@@ -127,8 +127,13 @@ export function showWeather(wObject, wrap) {
   document.getElementById('w-close-button').addEventListener('click', e => {
     e.stopPropagation();
     document.getElementById('w-wrap').style.display = 'none';
-  })  
+  })
+
+  document.getElementById('notice').style.display = 'none';
+  
+  document.getElementById('add-fav').addEventListener('click', addToFavorite)
 }
+
 
 
 export function createHeader() {
@@ -140,8 +145,14 @@ export function createHeader() {
   favLink.id = 'favorites';
   favLink.href = '#';
   favLink.innerHTML = 'Favorites <i class="fa fa-angle-double-right"></i>';
-
   headerWrap.appendChild(favLink);
+
+  const favWrap = document.createElement('div');
+  favWrap.className = 'fav-wrap';
+  favWrap.id = 'fav-wrap';
+  favWrap.style.display = 'none';
+  headerWrap.appendChild(favWrap)
+
   headerWrap.appendChild(showForm());
 
   return headerWrap;

@@ -1,7 +1,7 @@
 import './style.scss';
 import fetch from 'node-fetch';
 import { createHeader, showWeather } from './utils';
-// import { showFavorites } from './favorites'
+import { listFavorites } from './favorites'
 
 const fetchJSON = async (url) => {
   const response = await fetch(url);
@@ -31,12 +31,11 @@ let wWrap = document.createElement('div')
 wWrap.id = 'w-wrap';
 wWrap.style.display = 'none'
 
-function searchHandler(event) {
-  event.preventDefault();
-  const searchText = document.getElementById('search').value;
-  if(searchText){
-    let city = searchText.split(/[\s, ]+/)[0];
-    let country = searchText.split(/[\s, ]+/)[1];
+
+function getWeatherData(location) {
+  if(location){
+    let city = location.split(/[\s, ]+/)[0];
+    let country = location.split(/[\s, ]+/)[1];
     wWrap.innerHTML = '';
     fetchJSON(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
       wWrap.innerHTML = '';   
@@ -48,17 +47,27 @@ function searchHandler(event) {
   }
 }
 
+function searchHandler(event) {
+  event.preventDefault();
+  getWeatherData(document.getElementById('search').value)  
+}
 
 const pageHeading = document.createElement('H1');
 pageHeading.className = 'page-heading';
 pageHeading.innerText = 'WEATHER WEBSITE';
 
+const noticeBar = document.createElement('H7');
+noticeBar.id = 'notice';
+
 window.onload = () => {
   document.body.appendChild(pageHeading);
   document.body.appendChild(createHeader());
+  document.body.appendChild(noticeBar);
   document.body.appendChild(wWrap);
 
+  localStorage.removeItem('favorites');
+
   document.querySelector('#search-button').addEventListener('click', searchHandler)
-  // document.querySelector('#favorites').addEventListener('click', showFavorites);
+  document.getElementById('favorites').addEventListener('click', listFavorites);
 };
 

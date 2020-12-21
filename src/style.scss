@@ -8,7 +8,6 @@
   margin-top: 30px;
   color: #726aca;
   text-align: center;
-
 }
 
 #favorites {
@@ -19,9 +18,27 @@
   &:visited {
     color: #1a0dab;
   }
+
+  &:hover {
+    color: #090442;
+  }
+}
+
+#notice {
+  font-size: 18px;
+  text-align: center;
+}
+
+.alert-success {
+  color: #155724;
+}
+
+.alert-danger {
+  color: #721c24;
 }
 
 #header-wrap {
+  position: relative;
   margin: 20px auto;
   width:50%;
   display: flex;
@@ -57,13 +74,34 @@
       background-color: rgb(172, 184, 172);
     }
   }
+
+  .fav-wrap {
+    top: 10px;
+    left: 120px;
+    width: 20%;
+    height: 20vh;
+    z-index: 5;
+    color: #2c2aa3;
+    position: absolute;
+    background-color: gray;
+
+    .fav-list {
+      padding: 12px 20px;
+      font-size: 14px;
+      line-height: 12px;
+
+      &:hover {
+        background-color: dimgray;
+      }
+    }
+  }
 }
 
 #w-wrap {
   height: 20vw;
   padding: 30px;
   max-width: 50%;
-  margin: 50px auto;
+  margin: 30px auto;
   position: relative;
   border-radius: 15px;
   background-color: #bbbebe42 ;
