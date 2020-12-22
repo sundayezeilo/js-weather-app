@@ -1,12 +1,16 @@
 function fetchDataFromLocalStorage(key) {
-  return new Promise(resolve => {
-    let fav = localStorage[key]
-    if(fav){
-      fav = JSON.parse(fav);
-    }else {
-      fav = {}
+  return new Promise((resolve, reject) => {
+    try {
+      let fav = localStorage[key]
+      if(fav){
+        fav = JSON.parse(fav);
+      }else {
+        fav = {}
+      }
+      resolve(fav);      
+    } catch (error) {
+      reject(error)
     }
-    resolve(fav);
   }) 
 }
 
@@ -40,7 +44,7 @@ export function listFavorites(event) {
     }else {
       alert('No saved locations in your favorites')
     }  
-  })
+  }).catch(() => alert('Sorry, but something went wrong!'))
 }
 
 export async function showFavorite() {
@@ -65,5 +69,5 @@ export function addToFavorite(event) {
       notice.innerText = e;
       notice.className = 'alert-danger';      
     }) 
-  })
+  }).catch(() => alert('Sorry, but something went wrong!'))
 }
