@@ -1,11 +1,12 @@
 function fetchDataFromLocalStorage(key) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     let fav = localStorage[key]
     if(fav){
-      resolve(JSON.parse(fav));
+      fav = JSON.parse(fav);
     }else {
-      reject({});
+      fav = {}
     }
+    resolve(fav);
   }) 
 }
 
@@ -21,7 +22,7 @@ async function writeDataLocalStorage(key, data) {
 export function listFavorites(event) {
   event.stopPropagation();
   fetchDataFromLocalStorage('favorites').then(fav => {
-    if(fav.locations.length) {
+    if(fav.locations && fav.locations.length) {
       let favWrap = document.getElementById('fav-wrap');
       favWrap.innerHTML = '';
       console.log(fav.locations)
@@ -39,7 +40,7 @@ export function listFavorites(event) {
     }else {
       alert('No saved locations in your favorites')
     }  
-  }).catch (e => alert('No saved locations in your favorites'))
+  })
 }
 
 export async function showFavorite() {
@@ -48,24 +49,21 @@ export async function showFavorite() {
 
 export function addToFavorite(event) {
   event.stopPropagation();
-  let newFav;
   let notice = document.getElementById('notice');
   notice.style.display = 'block';
   let favLoc = document.querySelector('.loc').textContent;
-  fetchDataFromLocalStorage('favorites').then(fav => {    
-    newFav = fav;
-  }).finally(() => {
-    if(!newFav) {
-      newFav = { locations: [] };
+  fetchDataFromLocalStorage('favorites').then(fav => {
+    if(!fav.locations) {
+      fav.locations = [];
     }
-    newFav.locations.push(favLoc);
-    writeDataLocalStorage('favorites', newFav).then(() => {
+    fav.locations.push(favLoc);
+    writeDataLocalStorage('favorites', fav).then(() => {
       document.getElementById('add-fav').style.display = 'none';
       notice.innerText = 'Added to favorites!';
       notice.className = 'alert-success';
     }).catch(e => {
       notice.innerText = e;
       notice.className = 'alert-danger';      
-    })    
+    }) 
   })
 }
