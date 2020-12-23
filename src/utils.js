@@ -1,5 +1,4 @@
-import fetch from 'node-fetch';
-import { addToFavorite, removeFromFavorites, fetchDataFromLocalStorage } from './favorites'
+import { addToFavorite, removeFromFavorites, fetchDataFromLocalStorage } from './favorites';
 
 export function showForm() {
   const searchForm = document.createElement('input');
@@ -9,9 +8,9 @@ export function showForm() {
   searchForm.placeholder = 'Search city';
 
   const faIcon = document.createElement('i');
-  faIcon.className = "fa fa-search";
+  faIcon.className = 'fa fa-search';
 
-  let searchButton = document.createElement('button');
+  const searchButton = document.createElement('button');
   searchButton.type = 'submit';
   searchButton.id = 'search-button';
   searchButton.appendChild(faIcon);
@@ -25,18 +24,25 @@ export function showForm() {
 }
 
 function capitalize(str) {
-  return str[0].toUpperCase() + str.slice(1); 
+  return str[0].toUpperCase() + str.slice(1);
+}
+
+export function alertNotice(alertType, msg) {
+  const notice = document.getElementById('notice');
+  notice.className = `alert-${alertType}`;
+  notice.innerText = (msg);
+  notice.style.display = 'block';
 }
 
 function getImgSrc(str) {
-  return str.split(' ').map(e => e.toLowerCase()).join('-');  
+  return str.split(' ').map(e => e.toLowerCase()).join('-');
 }
 
 export function showWeather(wObject, wrap) {
   const closeButton = document.createElement('button');
   closeButton.className = 'fa fa-window-close';
   closeButton.id = 'w-close-button';
-  closeButton.setAttribute('aria-hidden', "true");
+  closeButton.setAttribute('aria-hidden', 'true');
   wrap.appendChild(closeButton);
 
   const location = document.createElement('p');
@@ -71,15 +77,15 @@ export function showWeather(wObject, wrap) {
   temp.appendChild(tempUnit);
   wrap.appendChild(temp);
 
-  let sideWrap = document.createElement('div');
+  const sideWrap = document.createElement('div');
   sideWrap.className = 'side-wrap';
-  
+
   const humidity = document.createElement('p');
   humidity.className = 'w-info';
   humidity.innerText = wObject.humidity;
   sideWrap.appendChild(humidity);
 
-  let windSpeed = document.createElement('p');
+  const windSpeed = document.createElement('p');
   windSpeed.className = 'w-info';
   windSpeed.innerText = wObject.windSpeed;
   sideWrap.appendChild(windSpeed);
@@ -88,25 +94,25 @@ export function showWeather(wObject, wrap) {
 
   const addFav = document.createElement('button');
   addFav.type = 'button';
-  addFav.id = 'add-fav'
+  addFav.id = 'add-fav';
   addFav.className = 'add-fav fa fa-plus-square';
 
   fetchDataFromLocalStorage('favorites').then(fav => {
-    if(fav.locations && fav.locations.find(loc => loc == wObject.location)){
+    if (fav.locations && fav.locations.find(loc => loc === wObject.location)) {
       addFav.innerText = ' Remove from favorites';
       addFav.addEventListener('click', (e) => {
         e.stopPropagation();
         removeFromFavorites();
-      })
-    }else {
+      });
+    } else {
       addFav.innerText = ' Add to favorites';
       addFav.addEventListener('click', (e) => {
         e.stopPropagation();
         addToFavorite();
-      })
+      });
     }
     wrap.appendChild(addFav);
-  })
+  });
 
   wrap.style.display = 'block';
 
@@ -115,43 +121,42 @@ export function showWeather(wObject, wrap) {
   document.querySelector('.cel').addEventListener('click', (e) => {
     e.stopPropagation();
     e.preventDefault();
-    let tempStr;
-    if(tempStr = document.querySelector('.temp-fah')){
-      let tempVal = parseFloat(tempStr.innerText)
-      let cel = ((tempVal - 32) * 5/9).toFixed();
+    const tempStr = document.querySelector('.temp-fah');
+    if (tempStr) {
+      const tempVal = parseFloat(tempStr.innerText);
+      const cel = (((tempVal - 32) * 5) / 9).toFixed();
       tempStr.className = 'temp-cel';
       tempStr.innerText = cel;
-      document.querySelector('.fah').style.color = '#1a0dab'; 
-      document.querySelector('.cel').style.color = '#202124';     
+      document.querySelector('.fah').style.color = '#1a0dab';
+      document.querySelector('.cel').style.color = '#202124';
     }
-  })
+  });
 
   document.querySelector('.fah').addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
-    let tempStr;
-    if(tempStr = document.querySelector('.temp-cel')){
-      let tempVal = parseFloat(tempStr.innerText)
-      let fah = (tempVal * 1.8 + 32).toFixed()
+    const tempStr = document.querySelector('.temp-cel');
+    if (tempStr) {
+      const tempVal = parseFloat(tempStr.innerText);
+      const fah = (tempVal * 1.8 + 32).toFixed();
       tempStr.className = 'temp-fah';
       tempStr.innerText = fah;
-      document.querySelector('.cel').style.color = '#1a0dab';  
-      document.querySelector('.fah').style.color = '#202124';      
+      document.querySelector('.cel').style.color = '#1a0dab';
+      document.querySelector('.fah').style.color = '#202124';
     }
-  })
+  });
 
   document.getElementById('w-close-button').addEventListener('click', e => {
     e.stopPropagation();
     document.getElementById('w-wrap').style.display = 'none';
-  })
+  });
 
   document.getElementById('notice').style.display = 'none';
 }
 
 
-
 export function createHeader() {
-  let headerWrap = document.createElement('div');
+  const headerWrap = document.createElement('div');
   headerWrap.id = 'header-wrap';
 
   const favLink = document.createElement('a');
@@ -165,7 +170,7 @@ export function createHeader() {
   favWrap.className = 'fav-wrap';
   favWrap.id = 'fav-wrap';
   favWrap.style.display = 'none';
-  headerWrap.appendChild(favWrap)
+  headerWrap.appendChild(favWrap);
 
   headerWrap.appendChild(showForm());
 
@@ -173,13 +178,10 @@ export function createHeader() {
 }
 
 
-const fetchJSON = async (url) => {
-  const response = await fetch(url);
-  return await response.json();
-}
+const fetchJSON = async (url) => fetch(url).then(response => response.json());
 
 function resetSearchForm() {
-  let textField = document.getElementById('search');
+  const textField = document.getElementById('search');
   textField.value = '';
   textField.placeholder = 'Search city';
 }
@@ -188,25 +190,25 @@ function resetSearchForm() {
 function processWeather(rawWeather) {
   return {
     location: `${rawWeather.name}, ${rawWeather.sys.country}`,
-    cloudCond: rawWeather['weather'][0]['description'],
-    tempFah: ((rawWeather['main']['temp'] - 273.15) * 1.8 + 32).toFixed(),
-    humidity: 'Humidity: ' + (rawWeather.main.humidity).toFixed() + '%',
-    windSpeed: 'Wind: ' + (rawWeather['wind']['speed']).toFixed() + ' mph',
+    cloudCond: rawWeather.weather[0].description,
+    tempFah: ((rawWeather.main.temp - 273.15) * 1.8 + 32).toFixed(),
+    humidity: `Humidity: ${(rawWeather.main.humidity).toFixed()}%`,
+    windSpeed: `Wind: ${(rawWeather.wind.speed).toFixed()} mph`,
     icon: `http://openweathermap.org/img/wn/${rawWeather.weather[0].icon}@2x.png`,
-  }
+  };
 }
 
 export function getWeatherData(location) {
-  if(location){
-    let city = location.split(/[\s, ]+/)[0];
-    let country = location.split(/[\s, ]+/)[1];
-    let wWrap = document.getElementById('w-wrap');
+  if (location) {
+    const city = location.split(/[\s, ]+/)[0];
+    const country = location.split(/[\s, ]+/)[1];
+    const wWrap = document.getElementById('w-wrap');
     fetchJSON(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
-      wWrap.innerHTML = '';   
+      wWrap.innerHTML = '';
       showWeather(processWeather(jsonData), document.getElementById('w-wrap'));
       resetSearchForm();
-    }).catch(e => alert('Oops! Something went wrong.\n Check your input and try again!'))
-  }else{
-    alert("input can't be blank");
+    }).catch(() => alertNotice('danger', 'Oops! Something went wrong.\n Check your input and try again!'));
+  } else {
+    alertNotice('warning', "input can't be blank");
   }
 }

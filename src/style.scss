@@ -44,7 +44,7 @@
 #header-wrap {
   position: relative;
   margin: 20px auto;
-  width:50%;
+  width: 50%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,10 +52,10 @@
   background-color: rgb(172, 184, 172);
   border-radius: 20px;
   padding: 10px;
-  
+
   #form-wrap {
-    max-width:70%;
-  
+    max-width: 70%;
+
     #search {
       padding: 10px;
       font-size: 17px;
@@ -67,7 +67,7 @@
         outline: none;
       }
     }
-  
+
     #search-button {
       width: 20%;
       padding: 10px;
@@ -99,8 +99,8 @@
       button {
         background-color: red;
         color: gray;
-    
-        &:hover {      
+
+        &:hover {
           transform: scale(1.1);
         }
       }
@@ -124,11 +124,11 @@
   margin: 30px auto;
   position: relative;
   border-radius: 15px;
-  background-color: #bbbebe42 ;
+  background-color: #bbbebe42;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  
+
   .w-info {
     color: #140d0dee;
     font-size: 20px;
@@ -144,7 +144,7 @@
     font-size: 40px;
 
     .cel {
-      color:  #1a0dab;
+      color: #1a0dab;
       text-decoration: none;
     }
 
@@ -173,10 +173,10 @@
     display: inline-block;
 
     &:hover {
-      font-size: 20px;      
+      font-size: 20px;
       transform: scale(1.1);
       border-color: rosybrown;
-      box-shadow:  0 0 10px #ff0037;
+      box-shadow: 0 0 10px #ff0037;
     }
   }
 
@@ -222,7 +222,7 @@
   background-image: url('./images/overcast-clouds.jpeg');
 }
 
-.rain{
+.rain {
   background-image: url('./images/rain.jpeg');
 }
 

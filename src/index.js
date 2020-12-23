@@ -1,16 +1,15 @@
 import './style.scss';
-import { createHeader } from './utils';
+import { createHeader, getWeatherData } from './utils';
 import { listFavorites } from './favorites';
 
-let wWrap = document.createElement('div')
-wWrap.id = 'w-wrap';
-wWrap.style.display = 'none'
 
-import { getWeatherData } from './utils';
+const wWrap = document.createElement('div');
+wWrap.id = 'w-wrap';
+wWrap.style.display = 'none';
 
 function searchHandler(event) {
   event.preventDefault();
-  getWeatherData(document.getElementById('search').value)  
+  getWeatherData(document.getElementById('search').value);
 }
 
 const pageHeading = document.createElement('H1');
@@ -28,7 +27,6 @@ window.onload = () => {
 
   localStorage.removeItem('favorites');
 
-  document.querySelector('#search-button').addEventListener('click', searchHandler)
+  document.querySelector('#search-button').addEventListener('click', searchHandler);
   document.getElementById('favorites').addEventListener('click', listFavorites);
 };
-
