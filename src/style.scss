@@ -33,6 +33,10 @@
   color: #155724;
 }
 
+.alert-warning {
+  color: #856404;
+}
+
 .alert-danger {
   color: #721c24;
 }
@@ -81,14 +85,30 @@
     width: 20%;
     height: 20vh;
     z-index: 5;
-    color: #2c2aa3;
     position: absolute;
     background-color: gray;
 
     .fav-list {
-      padding: 12px 20px;
+      padding: 12px 12px 14px 12px;
       font-size: 14px;
-      line-height: 12px;
+      display: flex;
+      max-height: 30px;
+      align-items: center;
+      justify-content: space-between;
+
+      button {
+        background-color: red;
+        color: gray;
+    
+        &:hover {      
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .fav-loc {
+      color: #2c2aa3;
+      cursor: pointer;
 
       &:hover {
         background-color: dimgray;
@@ -160,7 +180,8 @@
     }
   }
 
-  .add-fav {
+  .add-fav,
+  .rem-fav {
     left: 30px;
     bottom: 20px;
     height: 30px;

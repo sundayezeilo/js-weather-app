@@ -1,4 +1,5 @@
-import { addToFavorite } from './favorites'
+import fetch from 'node-fetch';
+import { addToFavorite, removeFromFavorites, fetchDataFromLocalStorage } from './favorites'
 
 export function showForm() {
   const searchForm = document.createElement('input');
@@ -89,8 +90,23 @@ export function showWeather(wObject, wrap) {
   addFav.type = 'button';
   addFav.id = 'add-fav'
   addFav.className = 'add-fav fa fa-plus-square';
-  addFav.innerText = ' Add to favorites';
-  wrap.appendChild(addFav);
+
+  fetchDataFromLocalStorage('favorites').then(fav => {
+    if(fav.locations && fav.locations.find(loc => loc == wObject.location)){
+      addFav.innerText = ' Remove from favorites';
+      addFav.addEventListener('click', (e) => {
+        e.stopPropagation();
+        removeFromFavorites();
+      })
+    }else {
+      addFav.innerText = ' Add to favorites';
+      addFav.addEventListener('click', (e) => {
+        e.stopPropagation();
+        addToFavorite();
+      })
+    }
+    wrap.appendChild(addFav);
+  })
 
   wrap.style.display = 'block';
 
@@ -130,8 +146,6 @@ export function showWeather(wObject, wrap) {
   })
 
   document.getElementById('notice').style.display = 'none';
-  
-  document.getElementById('add-fav').addEventListener('click', addToFavorite)
 }
 
 
@@ -156,4 +170,43 @@ export function createHeader() {
   headerWrap.appendChild(showForm());
 
   return headerWrap;
+}
+
+
+const fetchJSON = async (url) => {
+  const response = await fetch(url);
+  return await response.json();
+}
+
+function resetSearchForm() {
+  let textField = document.getElementById('search');
+  textField.value = '';
+  textField.placeholder = 'Search city';
+}
+
+
+function processWeather(rawWeather) {
+  return {
+    location: `${rawWeather.name}, ${rawWeather.sys.country}`,
+    cloudCond: rawWeather['weather'][0]['description'],
+    tempFah: ((rawWeather['main']['temp'] - 273.15) * 1.8 + 32).toFixed(),
+    humidity: 'Humidity: ' + (rawWeather.main.humidity).toFixed() + '%',
+    windSpeed: 'Wind: ' + (rawWeather['wind']['speed']).toFixed() + ' mph',
+    icon: `http://openweathermap.org/img/wn/${rawWeather.weather[0].icon}@2x.png`,
+  }
+}
+
+export function getWeatherData(location) {
+  if(location){
+    let city = location.split(/[\s, ]+/)[0];
+    let country = location.split(/[\s, ]+/)[1];
+    let wWrap = document.getElementById('w-wrap');
+    fetchJSON(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
+      wWrap.innerHTML = '';   
+      showWeather(processWeather(jsonData), document.getElementById('w-wrap'));
+      resetSearchForm();
+    }).catch(e => alert('Oops! Something went wrong.\n Check your input and try again!'))
+  }else{
+    alert("input can't be blank");
+  }
 }
