@@ -22,10 +22,10 @@ const removeFromFavorites = async (favLoc) => fetchDataFromLocalStorage('favorit
   return writeDataLocalStorage('favorites', fav);
 });
 
-function showFavorite(e) {
+const showFavorite = (e) => {
   e.stopPropagation();
   getWeatherData(e.target.textContent);
-}
+};
 
 
 const listFavorites = (event) => {
