@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import { alertNotice, getWeatherData } from './utils';
 
-export function fetchDataFromLocalStorage(key) {
+const fetchDataFromLocalStorage = (key) => {
   return new Promise((resolve, reject) => {
     try {
       let fav = localStorage[key];
@@ -17,11 +17,11 @@ export function fetchDataFromLocalStorage(key) {
   });
 }
 
-async function writeDataLocalStorage(key, data) {
+const writeDataLocalStorage = async (key, data) => {
   return localStorage.setItem(key, JSON.stringify(data));
 }
 
-export async function removeFromFavorites(favLoc) {
+const removeFromFavorites = async (favLoc) => {
   return fetchDataFromLocalStorage('favorites').then(fav => {
     fav.locations.splice(fav.locations.indexOf(favLoc), 1);
     return writeDataLocalStorage('favorites', fav);
@@ -34,7 +34,7 @@ function showFavorite(e) {
 }
 
 
-export function listFavorites(event) {
+const listFavorites = (event) => {
   if (event) {
     event.stopPropagation();
   }
@@ -84,7 +84,7 @@ export function listFavorites(event) {
   }).catch(() => alertNotice('warning', 'Sorry, but something went wrong!'));
 }
 
-export function addToFavorite() {
+const addToFavorite = () => {
   const favLoc = document.querySelector('.loc').textContent;
   fetchDataFromLocalStorage('favorites').then(fav => {
     if (!fav.locations) {
@@ -117,3 +117,6 @@ export function addToFavorite() {
     }
   }).catch(() => alertNotice('warning', 'Sorry, but something went wrong!'));
 }
+
+
+export { addToFavorite, listFavorites, removeFromFavorites, fetchDataFromLocalStorage };

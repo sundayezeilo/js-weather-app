@@ -86,7 +86,7 @@
     height: 20vh;
     z-index: 5;
     position: absolute;
-    background-color: gray;
+    background-color: whitesmoke;
 
     .fav-list {
       padding: 12px 12px 14px 12px;
@@ -111,7 +111,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: dimgray;
+        background-color: rgb(209, 190, 190);
       }
     }
   }

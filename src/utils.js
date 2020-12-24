@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-cycle
 import { addToFavorite, removeFromFavorites, fetchDataFromLocalStorage } from './favorites';
 
-export function showForm() {
+const showForm = () => {
   const searchForm = document.createElement('input');
   searchForm.type = 'text';
   searchForm.id = 'search';
@@ -28,7 +28,7 @@ function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1);
 }
 
-export function alertNotice(alertType, msg) {
+const alertNotice = (alertType, msg) => {
   const notice = document.getElementById('notice');
   notice.className = `alert-${alertType}`;
   notice.innerText = (msg);
@@ -39,7 +39,7 @@ function getImgSrc(str) {
   return str.split(' ').map(e => e.toLowerCase()).join('-');
 }
 
-export function showWeather(wObject, wrap) {
+const showWeather = (wObject, wrap) => {
   const closeButton = document.createElement('button');
   closeButton.className = 'fa fa-window-close';
   closeButton.id = 'w-close-button';
@@ -156,7 +156,7 @@ export function showWeather(wObject, wrap) {
 }
 
 
-export function createHeader() {
+const createHeader = () => {
   const headerWrap = document.createElement('div');
   headerWrap.id = 'header-wrap';
 
@@ -201,8 +201,9 @@ function processWeather(rawWeather) {
   };
 }
 
-export function getWeatherData(location) {
+const getWeatherData = (location) => {
   if (location) {
+    // let tempArr = location.split(/[\s, ]+/)[0];
     const city = location.split(/[\s, ]+/)[0];
     const country = location.split(/[\s, ]+/)[1];
     const wWrap = document.getElementById('w-wrap');
@@ -215,3 +216,5 @@ export function getWeatherData(location) {
     alertNotice('warning', "input can't be blank");
   }
 }
+
+export { getWeatherData, createHeader, showWeather, alertNotice, showForm };

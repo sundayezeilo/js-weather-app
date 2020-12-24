@@ -7,7 +7,7 @@ const wWrap = document.createElement('div');
 wWrap.id = 'w-wrap';
 wWrap.style.display = 'none';
 
-function searchHandler(event) {
+const searchHandler = (event) => {
   event.preventDefault();
   getWeatherData(document.getElementById('search').value);
 }
@@ -24,8 +24,6 @@ window.onload = () => {
   document.body.appendChild(createHeader());
   document.body.appendChild(noticeBar);
   document.body.appendChild(wWrap);
-
-  localStorage.removeItem('favorites');
 
   document.querySelector('#search-button').addEventListener('click', searchHandler);
   document.getElementById('favorites').addEventListener('click', listFavorites);
