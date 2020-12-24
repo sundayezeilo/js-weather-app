@@ -2,11 +2,17 @@
 import { addToFavorite, removeFromFavorites, fetchDataFromLocalStorage } from './favorites';
 
 const showForm = () => {
-  const searchForm = document.createElement('input');
-  searchForm.type = 'text';
-  searchForm.id = 'search';
-  searchForm.name = 'search';
-  searchForm.placeholder = 'Search city';
+  const searchCityForm = document.createElement('input');
+  searchCityForm.type = 'text';
+  searchCityForm.id = 'search-city';
+  searchCityForm.name = 'search-city';
+  searchCityForm.placeholder = 'Search city';
+
+  const searchCountryForm = document.createElement('input');
+  searchCountryForm.type = 'text';
+  searchCountryForm.id = 'search-country';
+  searchCountryForm.name = 'search-country';
+  searchCountryForm.placeholder = 'Country code';
 
   const faIcon = document.createElement('i');
   faIcon.className = 'fa fa-search';
@@ -19,10 +25,11 @@ const showForm = () => {
   const formWrap = document.createElement('form');
   formWrap.id = 'form-wrap';
 
-  formWrap.appendChild(searchForm);
+  formWrap.appendChild(searchCityForm);
+  formWrap.appendChild(searchCountryForm);
   formWrap.appendChild(searchButton);
   return formWrap;
-}
+};
 
 function capitalize(str) {
   return str[0].toUpperCase() + str.slice(1);
@@ -33,7 +40,7 @@ const alertNotice = (alertType, msg) => {
   notice.className = `alert-${alertType}`;
   notice.innerText = (msg);
   notice.style.display = 'block';
-}
+};
 
 function getImgSrc(str) {
   return str.split(' ').map(e => e.toLowerCase()).join('-');
@@ -153,7 +160,7 @@ const showWeather = (wObject, wrap) => {
   });
 
   document.getElementById('notice').style.display = 'none';
-}
+};
 
 
 const createHeader = () => {
@@ -176,7 +183,7 @@ const createHeader = () => {
   headerWrap.appendChild(showForm());
 
   return headerWrap;
-}
+};
 
 
 async function fetchJSON(url) {
@@ -184,9 +191,13 @@ async function fetchJSON(url) {
 }
 
 function resetSearchForm() {
-  const textField = document.getElementById('search');
+  let textField = document.getElementById('search-city');
   textField.value = '';
   textField.placeholder = 'Search city';
+
+  textField = document.getElementById('search-country');
+  textField.value = '';
+  textField.placeholder = 'Country code';
 }
 
 
@@ -201,13 +212,10 @@ function processWeather(rawWeather) {
   };
 }
 
-const getWeatherData = (location) => {
-  if (location) {
-    // let tempArr = location.split(/[\s, ]+/)[0];
-    const city = location.split(/[\s, ]+/)[0];
-    const country = location.split(/[\s, ]+/)[1];
+const getWeatherData = (city, countryCode) => {
+  if (city && countryCode) {
     const wWrap = document.getElementById('w-wrap');
-    fetchJSON(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
+    fetchJSON(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
       wWrap.innerHTML = '';
       showWeather(processWeather(jsonData), document.getElementById('w-wrap'));
       resetSearchForm();
@@ -215,6 +223,8 @@ const getWeatherData = (location) => {
   } else {
     alertNotice('warning', "input can't be blank");
   }
-}
+};
 
-export { getWeatherData, createHeader, showWeather, alertNotice, showForm };
+export {
+  getWeatherData, createHeader, showWeather, alertNotice, showForm,
+};

@@ -1,32 +1,26 @@
 // eslint-disable-next-line import/no-cycle
 import { alertNotice, getWeatherData } from './utils';
 
-const fetchDataFromLocalStorage = (key) => {
-  return new Promise((resolve, reject) => {
-    try {
-      let fav = localStorage[key];
-      if (fav) {
-        fav = JSON.parse(fav);
-      } else {
-        fav = {};
-      }
-      resolve(fav);
-    } catch (e) {
-      reject(e);
+const fetchDataFromLocalStorage = (key) => new Promise((resolve, reject) => {
+  try {
+    let fav = localStorage[key];
+    if (fav) {
+      fav = JSON.parse(fav);
+    } else {
+      fav = {};
     }
-  });
-}
+    resolve(fav);
+  } catch (e) {
+    reject(e);
+  }
+});
 
-const writeDataLocalStorage = async (key, data) => {
-  return localStorage.setItem(key, JSON.stringify(data));
-}
+const writeDataLocalStorage = async (key, data) => localStorage.setItem(key, JSON.stringify(data));
 
-const removeFromFavorites = async (favLoc) => {
-  return fetchDataFromLocalStorage('favorites').then(fav => {
-    fav.locations.splice(fav.locations.indexOf(favLoc), 1);
-    return writeDataLocalStorage('favorites', fav);
-  });
-}
+const removeFromFavorites = async (favLoc) => fetchDataFromLocalStorage('favorites').then(fav => {
+  fav.locations.splice(fav.locations.indexOf(favLoc), 1);
+  return writeDataLocalStorage('favorites', fav);
+});
 
 function showFavorite(e) {
   e.stopPropagation();
@@ -82,7 +76,7 @@ const listFavorites = (event) => {
       alertNotice('warning', 'No saved locations in your favorites');
     }
   }).catch(() => alertNotice('warning', 'Sorry, but something went wrong!'));
-}
+};
 
 const addToFavorite = () => {
   const favLoc = document.querySelector('.loc').textContent;
@@ -116,7 +110,9 @@ const addToFavorite = () => {
       });
     }
   }).catch(() => alertNotice('warning', 'Sorry, but something went wrong!'));
-}
+};
 
 
-export { addToFavorite, listFavorites, removeFromFavorites, fetchDataFromLocalStorage };
+export {
+  addToFavorite, listFavorites, removeFromFavorites, fetchDataFromLocalStorage,
+};

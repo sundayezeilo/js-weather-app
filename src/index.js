@@ -9,8 +9,8 @@ wWrap.style.display = 'none';
 
 const searchHandler = (event) => {
   event.preventDefault();
-  getWeatherData(document.getElementById('search').value);
-}
+  getWeatherData(document.getElementById('search-city').value, document.getElementById('search-country').value);
+};
 
 const pageHeading = document.createElement('H1');
 pageHeading.className = 'page-heading';

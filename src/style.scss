@@ -41,6 +41,14 @@
   color: #721c24;
 }
 
+#search-city {
+  width: 50%;
+}
+
+#search-country {
+  width: 30%;
+}
+
 #header-wrap {
   position: relative;
   margin: 20px auto;
@@ -56,11 +64,11 @@
   #form-wrap {
     max-width: 70%;
 
-    #search {
+    #search-city,
+    #search-country {
       padding: 10px;
-      font-size: 17px;
+      font-size: 14px;
       border: 1px solid grey;
-      width: 75%;
       background: #f1f1f1;
 
       &:focus {
