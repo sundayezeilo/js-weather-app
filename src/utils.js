@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-cycle
 import { addToFavorite, removeFromFavorites, fetchDataFromLocalStorage } from './favorites';
 
 export function showForm() {
@@ -178,7 +179,9 @@ export function createHeader() {
 }
 
 
-const fetchJSON = async (url) => fetch(url).then(response => response.json());
+async function fetchJSON(url) {
+  return fetch(url).then(response => response.json());
+}
 
 function resetSearchForm() {
   const textField = document.getElementById('search');
