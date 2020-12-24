@@ -31,9 +31,7 @@ const showForm = () => {
   return formWrap;
 };
 
-const capitalize = (str) => {
-  return str[0].toUpperCase() + str.slice(1);
-}
+const capitalize = (str) => str[0].toUpperCase() + str.slice(1);
 
 const alertNotice = (alertType, msg) => {
   const notice = document.getElementById('notice');
@@ -42,9 +40,7 @@ const alertNotice = (alertType, msg) => {
   notice.style.display = 'block';
 };
 
-const getImgSrc = (str) => {
-  return str.split(' ').map(e => e.toLowerCase()).join('-');
-}
+const getImgSrc = (str) => str.split(' ').map(e => e.toLowerCase()).join('-');
 
 const showWeather = (wObject, wrap) => {
   const closeButton = document.createElement('button');
@@ -186,9 +182,7 @@ const createHeader = () => {
 };
 
 
-const fetchJSON = async (url) => {
-  return fetch(url).then(response => response.json());
-}
+const fetchJSON = async (url) => fetch(url).then(response => response.json());
 
 const resetSearchForm = () => {
   let textField = document.getElementById('search-city');
@@ -198,19 +192,17 @@ const resetSearchForm = () => {
   textField = document.getElementById('search-country');
   textField.value = '';
   textField.placeholder = 'Country code';
-}
+};
 
 
-const processWeather = (rawWeather) => {
-  return {
-    location: `${rawWeather.name}, ${rawWeather.sys.country}`,
-    cloudCond: rawWeather.weather[0].description,
-    tempFah: ((rawWeather.main.temp - 273.15) * 1.8 + 32).toFixed(),
-    humidity: `Humidity: ${(rawWeather.main.humidity).toFixed()}%`,
-    windSpeed: `Wind: ${(rawWeather.wind.speed).toFixed()} mph`,
-    icon: `http://openweathermap.org/img/wn/${rawWeather.weather[0].icon}@2x.png`,
-  };
-}
+const processWeather = (rawWeather) => ({
+  location: `${rawWeather.name}, ${rawWeather.sys.country}`,
+  cloudCond: rawWeather.weather[0].description,
+  tempFah: ((rawWeather.main.temp - 273.15) * 1.8 + 32).toFixed(),
+  humidity: `Humidity: ${(rawWeather.main.humidity).toFixed()}%`,
+  windSpeed: `Wind: ${(rawWeather.wind.speed).toFixed()} mph`,
+  icon: `http://openweathermap.org/img/wn/${rawWeather.weather[0].icon}@2x.png`,
+});
 
 const getWeatherData = (city, countryCode) => {
   if (city) {
