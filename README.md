@@ -14,7 +14,7 @@
 
  - Open a terminal
  
- - Clone this code: 
+ - Clone this app: 
         ```
         git clone https://github.com/ezeilo-su/js-weather-app
         ```
@@ -22,6 +22,8 @@
 - Run the command ```npm install``` from root directory to install the app dependencies.
 
 - Run the command ```npx webpack``` to bundle up the files.
+
+- Run the command ```npm run dev``` to start a dev server.
 
 
 ### Build With
