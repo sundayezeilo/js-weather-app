@@ -31,7 +31,7 @@ const showForm = () => {
   return formWrap;
 };
 
-function capitalize(str) {
+const capitalize = (str) => {
   return str[0].toUpperCase() + str.slice(1);
 }
 
@@ -42,7 +42,7 @@ const alertNotice = (alertType, msg) => {
   notice.style.display = 'block';
 };
 
-function getImgSrc(str) {
+const getImgSrc = (str) => {
   return str.split(' ').map(e => e.toLowerCase()).join('-');
 }
 
@@ -186,11 +186,11 @@ const createHeader = () => {
 };
 
 
-async function fetchJSON(url) {
+const fetchJSON = async (url) => {
   return fetch(url).then(response => response.json());
 }
 
-function resetSearchForm() {
+const resetSearchForm = () => {
   let textField = document.getElementById('search-city');
   textField.value = '';
   textField.placeholder = 'Search city';
@@ -201,7 +201,7 @@ function resetSearchForm() {
 }
 
 
-function processWeather(rawWeather) {
+const processWeather = (rawWeather) => {
   return {
     location: `${rawWeather.name}, ${rawWeather.sys.country}`,
     cloudCond: rawWeather.weather[0].description,
