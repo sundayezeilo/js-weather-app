@@ -93,7 +93,6 @@ export function addToFavorite() {
     if (!fav.locations.find(e => e === favLoc)) {
       fav.locations.push(favLoc);
       writeDataLocalStorage('favorites', fav).then(() => {
-        // createRemoveFavoriteEvent();
         const favButton = document.getElementById('add-fav');
         favButton.innerText = ' Remove from favorites';
         favButton.id = 'rem-fav';
@@ -101,7 +100,6 @@ export function addToFavorite() {
           e.stopPropagation();
           removeFromFavorites().then(() => {
             alertNotice('success', 'Removed from favorites!');
-            // createAddFavoritesEvent();
             const favButton = document.getElementById('rem-fav');
             favButton.innerText = ' Add to favorites';
             favButton.id = 'add-fav';
@@ -119,27 +117,3 @@ export function addToFavorite() {
     }
   }).catch(() => alertNotice('warning', 'Sorry, but something went wrong!'));
 }
-
-// function createAddFavoritesEvent() {
-//   const favButton = document.getElementById('rem-fav');
-//   favButton.innerText = ' Add to favorites';
-//   favButton.id = 'add-fav';
-
-//   favButton.addEventListener('click', e => {
-//     e.stopPropagation();
-//     addToFavorite();
-//   }, { once: true });
-// }
-
-// function createRemoveFavoriteEvent() {
-//   const favButton = document.getElementById('add-fav');
-//   favButton.innerText = ' Remove from favorites';
-//   favButton.id = 'rem-fav';
-//   favButton.addEventListener('click', (e) => {
-//     e.stopPropagation();
-//     removeFromFavorites().then(() => {
-//       alertNotice('success', 'Removed from favorites!');
-//       createAddFavoritesEvent();
-//     });
-//   }, { once: true });
-// }
