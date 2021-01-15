@@ -201,13 +201,13 @@ const processWeather = (rawWeather) => ({
   tempFah: ((rawWeather.main.temp - 273.15) * 1.8 + 32).toFixed(),
   humidity: `Humidity: ${(rawWeather.main.humidity).toFixed()}%`,
   windSpeed: `Wind: ${(rawWeather.wind.speed).toFixed()} mph`,
-  icon: `http://openweathermap.org/img/wn/${rawWeather.weather[0].icon}@2x.png`,
+  icon: `https://openweathermap.org/img/wn/${rawWeather.weather[0].icon}@2x.png`,
 });
 
 const getWeatherData = (city, countryCode) => {
   if (city) {
     const wWrap = document.getElementById('w-wrap');
-    fetchJSON(`http://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
+    fetchJSON(`https://api.openweathermap.org/data/2.5/weather?q=${city},${countryCode}&APPID=ee0d92f2309953f56ed99eb09e4e1159`).then(jsonData => {
       wWrap.innerHTML = '';
       showWeather(processWeather(jsonData), document.getElementById('w-wrap'));
       resetSearchForm();
